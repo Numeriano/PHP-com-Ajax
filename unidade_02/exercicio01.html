@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Solicitacao</title>
+
+        <script>
+
+        function carregarInformacoes(){
+
+            //Criação de um objeto, envio do arquivo e teste do envio
+            var ajax
+            if(window.XMLHttpRequest){
+                ajax = new XMLHttpRequest();
+            }
+            else{
+                ajax = new ActiveXObject();
+            }
+
+            ajax.open('GET','dados.txt',true);
+            ajax.onreadystatechange = function (){
+                if(ajax.status == 200){
+                    if(ajax.readyState == 3){
+                        console.log("Processando Requisição");
+                    }
+
+                    if(ajax.readyState == 4){
+                        var identifique = document.getElementById('dinamico');
+                        identifique.innerHTML = ajax.responseText;
+
+                        var titulo = document.getElementsByTagName('h1');
+                        titulo[0].innerHTML = ajax.responseText;
+                       
+                    }
+                }
+                 else{
+                    console.log("Erro na operação");
+                }                
+            }
+            ajax.send();
+        }    
+        </script>
+
+    </head>
+
+    <body>
+        <button onclick="carregarInformacoes()" id="botao">Botâo</button>
+        <div id="dinamico"></div>
+        <h1></h1>
+    </body>
+</html>
